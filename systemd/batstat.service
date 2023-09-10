@@ -1,0 +1,13 @@
+[Unit]
+Description=Notifications for low battery levels.
+PartOf=graphical-session.target
+StartLimitIntervalSec=120
+StartLimitBurst=10
+
+[Service]
+ExecStart=/usr/local/bin/batstat
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=graphical-session.target
