@@ -8,4 +8,13 @@ Battery notifications.
 
 ## Installation
 
-`sudo make install`
+```bash
+sudo make install
+```
+
+### Start systemd service
+
+```bash
+systemctl --user daemon-reload
+systemctl --user start batstat
+```
