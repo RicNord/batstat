@@ -17,9 +17,13 @@ install: all
 	mkdir -p "$(DESTDIR)$(PREFIX)/bin"
 	cp -f batstat "$(DESTDIR)$(PREFIX)/bin"
 	chmod 755 "$(DESTDIR)$(PREFIX)/bin/batstat"
+	mkdir -p /etc/systemd/user
+	cp systemd/batstat.service /etc/systemd/user
+	chmod 644 /etc/systemd/user/batstat.service
 
 uninstall:
 	rm -f "$(DESTDIR)$(PREFIX)/bin/batstat"
+	rm -f "/etc/systemd/user/batstat.service"
 
 clean:
 	rm *.o batstat
