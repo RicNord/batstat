@@ -16,5 +16,5 @@ sudo make install
 
 ```bash
 systemctl --user daemon-reload
-systemctl --user start batstat
+systemctl --user enable --now batstat
 ```
