@@ -56,12 +56,14 @@ int main()
 	size_t percent_bufsize = 4;
 	size_t state_bufsize = 20;
 
+	percent_buffer = (char *)malloc(percent_bufsize * sizeof(char));
+	state_buffer = (char *)malloc(state_bufsize * sizeof(char));
+	if (percent_buffer == NULL || state_buffer == NULL) {
+		perror("Unable to allocate buffers");
+		exit(EXIT_FAILURE);
+	}
+
 	do {
-		percent_buffer = (char *)malloc(percent_bufsize * sizeof(char));
-		state_buffer = (char *)malloc(state_bufsize * sizeof(char));
-		if (percent_buffer == NULL || state_buffer == NULL) {
-			perror("Unable to allocate buffers");
-		}
 		battery_perc(&percent_buffer, percent_bufsize);
 		battery_state(&state_buffer, state_bufsize);
 
@@ -97,9 +99,10 @@ int main()
 				LESS_05_SWITCH = 0;
 			};
 		}
-		free(percent_buffer);
-		free(state_buffer);
-	} while (!sleep(10));
+	} while (!sleep(30));
+
+	free(percent_buffer);
+	free(state_buffer);
 
 	return 0;
 }
