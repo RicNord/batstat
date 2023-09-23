@@ -26,4 +26,4 @@ uninstall:
 	rm -f "/etc/systemd/user/batstat.service"
 
 clean:
-	rm *.o batstat
+	rm -f *.o batstat
