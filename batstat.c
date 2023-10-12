@@ -67,34 +67,34 @@ int main()
 		battery_perc(&percent_buffer, percent_bufsize);
 		battery_state(&state_buffer, state_bufsize);
 
+		int current_percent = atoi(percent_buffer);
+
 		if (strncmp(state_buffer, "Discharging", 11) == 0) {
-			if (atoi(percent_buffer) < 05 && LESS_05_SWITCH == 0) {
+			if (current_percent < 5 && LESS_05_SWITCH == 0) {
 				send_notification("Battery below 5%", 1);
 				LESS_05_SWITCH = 1;
 				LESS_10_SWITCH = 1;
 				LESS_20_SWITCH = 1;
-			} else if (atoi(percent_buffer) < 10 &&
+			} else if (current_percent < 10 &&
 				   LESS_10_SWITCH == 0) {
-				send_notification("Battery below 10%", 0);
+				send_notification("Battery below 10%", 1);
 				LESS_10_SWITCH = 1;
 				LESS_20_SWITCH = 1;
-			} else if (atoi(percent_buffer) < 20 &&
+			} else if (current_percent < 20 &&
 				   LESS_20_SWITCH == 0) {
 				send_notification("Battery below 20%", 0);
 				LESS_20_SWITCH = 1;
 			};
-		}
-
-		if (strncmp(state_buffer, "Discharging", 11) != 0) {
-			if (atoi(percent_buffer) >= 20 && LESS_20_SWITCH == 1) {
+		} else {
+			if (current_percent >= 20 && LESS_20_SWITCH == 1) {
 				LESS_20_SWITCH = 0;
 				LESS_10_SWITCH = 0;
 				LESS_05_SWITCH = 0;
-			} else if (atoi(percent_buffer) >= 10 &&
+			} else if (current_percent >= 10 &&
 				   LESS_10_SWITCH == 1) {
 				LESS_10_SWITCH = 0;
 				LESS_05_SWITCH = 0;
-			} else if (atoi(percent_buffer) >= 5 &&
+			} else if (current_percent >= 5 &&
 				   LESS_05_SWITCH == 1) {
 				LESS_05_SWITCH = 0;
 			};
